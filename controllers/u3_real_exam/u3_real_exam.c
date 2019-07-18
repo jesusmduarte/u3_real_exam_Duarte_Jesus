@@ -22,8 +22,8 @@
 #define MAX_BITS 65535
 
 #define MAX_VELOCITY 30.36
-#define VELOCITY_AUTONOMOUS -3.14
-#define VELOCITY_MANUAL -3.14
+#define VELOCITY_AUTONOMOUS -8
+#define VELOCITY_MANUAL -6
 #define DISTANCE_OBSTACLE 17
 
 /*functions*/
@@ -135,7 +135,7 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
 
 
     /* AVOID OBSTACLES LEFT */
-    float angle=
+    //float angle=
     if (distance_sensor_value2 <= desired_centimeters && flag_left == 1) {
        wb_motor_set_velocity(first_motor, VELOCITY_AUTONOMOUS);
        wb_motor_set_velocity(second_motor, VELOCITY_AUTONOMOUS);
@@ -167,11 +167,15 @@ enum {
 int main(int argc, char **argv)
 {
   /* necessary to initialize webots stuff */
-  wb_robot_init();
+   wb_robot_init();
 
-  WbDeviceTag first_motor = wb_robot_get_device("wheel1");
+   WbDeviceTag first_motor = wb_robot_get_device("wheel1");
    WbDeviceTag second_motor = wb_robot_get_device("wheel2");
    WbDeviceTag third_motor = wb_robot_get_device("wheel3");
+   
+   WbDeviceTag fourth_motor = wb_robot_get_device("motor_4");
+   WbDeviceTag five_motor = wb_robot_get_device("motor_5");
+   
 
    WbDeviceTag right_distance = wb_robot_get_device("right_light");
    WbDeviceTag left_distance = wb_robot_get_device("left_light");
@@ -183,6 +187,8 @@ int main(int argc, char **argv)
    wb_motor_set_position(first_motor, INFINITY);
    wb_motor_set_position(second_motor, INFINITY);
    wb_motor_set_position(third_motor, INFINITY);
+   wb_motor_set_position(fourth_motor, INFINITY);
+   wb_motor_set_position(five_motor, INFINITY);
 
    wb_distance_sensor_enable(right_distance, TIME_STEP);
    wb_distance_sensor_enable(left_distance, TIME_STEP);
@@ -213,6 +219,8 @@ int main(int argc, char **argv)
 
       if (key == 'W') {
           robot_status = MANUAL;
+          wb_motor_set_velocity(fourth_motor, 2);
+          wb_motor_set_velocity(five_motor, 1);
       }
       else if (key == 'G') {
           robot_status = AUTONOMOUS;
