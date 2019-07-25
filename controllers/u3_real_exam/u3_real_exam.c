@@ -141,10 +141,6 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
         < distance_sensor_value1) {
         angle_left++;
     }
-
-    
-    
-
         ///TRURN LEFT//
     
     if (angle_left >= 1 && angle_left <= 70) {
@@ -154,8 +150,7 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
        printf("Degrees/s are: %ddeg/s\n", 45);
        angle_left++;
       
-    }
-    else {
+    } else {
         angle_left = 0;
     }
     /* AVOID OBSTACLES RIGHT */
@@ -169,8 +164,7 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
         wb_motor_set_velocity(third_motor, degreesSec2RadSec());
         printf("Degrees/s are: %ddeg/s\n", 45);
         angle_right++;
-    }
-    else {
+    } else {
         angle_right = 0;
     }
 
@@ -238,11 +232,9 @@ int main(int argc, char **argv) {
 
       if (key == 'W') {
           robot_status = MANUAL;
-      }
-      else if (key == 'G') {
+      } else if (key == 'G') {
           robot_status = AUTONOMOUS;
-      }
-      else {
+      } else {
           stopMotors(first_motor, second_motor, third_motor);
       }
 
