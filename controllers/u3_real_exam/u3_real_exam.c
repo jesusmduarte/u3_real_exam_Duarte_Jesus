@@ -32,18 +32,18 @@
 
 
 /*functions*/
-float resolutionToCentimeters(float centimeters){
+float resolutionToCentimeters(float centimeters) {
     return (MAX_BITS*20)/(MAX_BITS);
 }
 
 void stopMotors(WbDeviceTag first_motor, WbDeviceTag second_motor,
-                   WbDeviceTag third_motor){
+                   WbDeviceTag third_motor) {
     wb_motor_set_velocity(first_motor, 0);
     wb_motor_set_velocity(second_motor, 0);
     wb_motor_set_velocity(third_motor, 0);
 }
 
-float angularToLinealVelocity(float meters_per_second){
+float angularToLinealVelocity(float meters_per_second) {
     float RPM;
     float linear_velocity;
 
@@ -63,54 +63,61 @@ float degreesSec2RadSec(void) {
 }
 
 void manual(int key, WbDeviceTag first_motor, WbDeviceTag second_motor,
-            WbDeviceTag third_motor){
+            WbDeviceTag third_motor) {
     switch (key) {
         
-        case WB_KEYBOARD_UP:    wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
-                                wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
-                                wb_motor_set_velocity(third_motor,0);
-                                printf("Linear Velocity is: %.2lf\n",
-                                angularToLinealVelocity(0.3));
-                                break;
+        case WB_KEYBOARD_UP:    
+             wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
+             wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
+             wb_motor_set_velocity(third_motor,0);
+             printf("Linear Velocity is: %.2lf\n",
+             angularToLinealVelocity(0.3));
+             break;
         
-        case WB_KEYBOARD_DOWN:  wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
-                                wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
-                                wb_motor_set_velocity(third_motor,0);
-                                printf("Linear Velocity is: %.2lf\n",
-                                angularToLinealVelocity(0.3));
-                                break;
+        case WB_KEYBOARD_DOWN:
+             wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
+             wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
+             wb_motor_set_velocity(third_motor,0);
+             printf("Linear Velocity is: %.2lf\n",
+             angularToLinealVelocity(0.3));
+             break;
         
-        case WB_KEYBOARD_LEFT:  wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
-                                wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
-                                wb_motor_set_velocity(third_motor,-VELOCITY_MANUAL*1.85);                                
-                                printf("Linear Velocity is: %.2lf\n",
-                                angularToLinealVelocity(0.3));
-                                break;
+        case WB_KEYBOARD_LEFT:  
+             wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
+             wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
+             wb_motor_set_velocity(third_motor,-VELOCITY_MANUAL*1.85);                                
+             printf("Linear Velocity is: %.2lf\n",
+             angularToLinealVelocity(0.3));
+             break;
         
-        case WB_KEYBOARD_RIGHT: wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
-                                wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
-                                wb_motor_set_velocity(third_motor,VELOCITY_MANUAL*1.85);
-                                printf("Linear Velocity is: %.2lf\n",
-                                angularToLinealVelocity(0.3));
-                                break;
+        case WB_KEYBOARD_RIGHT: 
+             wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
+             wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
+             wb_motor_set_velocity(third_motor,VELOCITY_MANUAL*1.85);
+             printf("Linear Velocity is: %.2lf\n",
+             angularToLinealVelocity(0.3));
+             break;
         
-        case 'A':               wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
-                                wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
-                                wb_motor_set_velocity(third_motor,VELOCITY_MANUAL);
-                                printf("Degrees/s are: %d\n", 45);
-                                break;
+        case 'A':               
+             wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
+             wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
+             wb_motor_set_velocity(third_motor,VELOCITY_MANUAL);
+             printf("Degrees/s are: %d\n", 45);
+             break;
         
-        case 'S':               wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
-                                wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
-                                wb_motor_set_velocity(third_motor,-VELOCITY_MANUAL);
-                                printf("Degrees/s are: %d\n", 45);
-                                break;
-        default:                wb_motor_set_velocity(first_motor,0);
-                                wb_motor_set_velocity(second_motor,0);
-                                wb_motor_set_velocity(third_motor,0);
-                                printf("Linear Velocity is: %.2lf\n",
-                                angularToLinealVelocity(0));
-                                break;
+        case 'S':               
+             wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
+             wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
+             wb_motor_set_velocity(third_motor,-VELOCITY_MANUAL);
+             printf("Degrees/s are: %d\n", 45);
+             break;
+        default:                
+             wb_motor_set_velocity(first_motor,0);
+             wb_motor_set_velocity(second_motor,0);
+             wb_motor_set_velocity(third_motor,0);
+             printf("Linear Velocity is: %.2lf\n",
+             angularToLinealVelocity(0));
+             break;
     }
 }
 
@@ -135,7 +142,7 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
         angle_left++;
     }
 
-    /* STOP */
+    
     
 
         ///TRURN LEFT//
@@ -183,12 +190,11 @@ char *file3 = "Distance sensor left value:";
 char *file4 = "Position sensor motor2:";
 char *file5 = "Position sensor motor3:";
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   /* necessary to initialize webots stuff */
-  wb_robot_init();
+   wb_robot_init();
 
-  WbDeviceTag first_motor = wb_robot_get_device("wheel1");
+   WbDeviceTag first_motor = wb_robot_get_device("wheel1");
    WbDeviceTag second_motor = wb_robot_get_device("wheel2");
    WbDeviceTag third_motor = wb_robot_get_device("wheel3");
 
@@ -244,12 +250,14 @@ int main(int argc, char **argv)
       distance_sensor_value2 = wb_distance_sensor_get_value(left_distance);
 
       switch (robot_status) {
-          case MANUAL:     manual(key, first_motor, second_motor, third_motor);
-                           break;
-          case AUTONOMOUS: autonomous(first_motor, second_motor, third_motor,
-                           distance_sensor_value1, distance_sensor_value2,
-                           desired_centimeters);
-                           break;
+          case MANUAL:     
+          manual(key, first_motor, second_motor, third_motor);
+          break;
+          case AUTONOMOUS: 
+          autonomous(first_motor, second_motor, third_motor,
+          distance_sensor_value1, distance_sensor_value2,
+          desired_centimeters);
+          break;
       }
       // current_time = wb_robot_get_time();
       distance_sensor_value1 = wb_distance_sensor_get_value(right_distance);
