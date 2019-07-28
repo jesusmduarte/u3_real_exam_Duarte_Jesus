@@ -17,7 +17,7 @@
 
 #define TIME_STEP 64
 
-#define RADIUS_WHEELS 0.07
+#define RADIUS_WHEELS 0.09
 #define PI 3.14
 #define MAX_BITS 65535
 #define SPIN_DEGREE 45
@@ -27,7 +27,7 @@
 #define MAX_VELOCITY 30.36
 #define VELOCITY_AUTONOMOUS -8
 #define VELOCITY_MANUAL -6
-#define DISTANCE_OBSTACLE 17
+#define DISTANCE_OBSTACLE 19
 
 
 
@@ -65,15 +65,15 @@ float degreesSec2RadSec(void) {
 void manual(int key, WbDeviceTag first_motor, WbDeviceTag second_motor,
             WbDeviceTag third_motor) {
     switch (key) {
-        
-        case WB_KEYBOARD_UP:    
+
+        case WB_KEYBOARD_UP:
              wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
              wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
              wb_motor_set_velocity(third_motor,0);
              printf("Linear Velocity is: %.2lf\n",
              angularToLinealVelocity(0.3));
              break;
-        
+
         case WB_KEYBOARD_DOWN:
              wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
              wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
@@ -81,37 +81,37 @@ void manual(int key, WbDeviceTag first_motor, WbDeviceTag second_motor,
              printf("Linear Velocity is: %.2lf\n",
              angularToLinealVelocity(0.3));
              break;
-        
-        case WB_KEYBOARD_LEFT:  
+
+        case WB_KEYBOARD_LEFT:
              wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
              wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
-             wb_motor_set_velocity(third_motor,-VELOCITY_MANUAL*1.85);                                
+             wb_motor_set_velocity(third_motor,-VELOCITY_MANUAL*1.85);
              printf("Linear Velocity is: %.2lf\n",
              angularToLinealVelocity(0.3));
              break;
-        
-        case WB_KEYBOARD_RIGHT: 
+
+        case WB_KEYBOARD_RIGHT:
              wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
              wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
              wb_motor_set_velocity(third_motor,VELOCITY_MANUAL*1.85);
              printf("Linear Velocity is: %.2lf\n",
              angularToLinealVelocity(0.3));
              break;
-        
-        case 'A':               
+
+        case 'A':
              wb_motor_set_velocity(first_motor,VELOCITY_MANUAL);
              wb_motor_set_velocity(second_motor,VELOCITY_MANUAL);
              wb_motor_set_velocity(third_motor,VELOCITY_MANUAL);
              printf("Degrees/s are: %d\n", 45);
              break;
-        
-        case 'S':               
+
+        case 'S':
              wb_motor_set_velocity(first_motor,-VELOCITY_MANUAL);
              wb_motor_set_velocity(second_motor,-VELOCITY_MANUAL);
              wb_motor_set_velocity(third_motor,-VELOCITY_MANUAL);
              printf("Degrees/s are: %d\n", 45);
              break;
-        default:                
+        default:
              wb_motor_set_velocity(first_motor,0);
              wb_motor_set_velocity(second_motor,0);
              wb_motor_set_velocity(third_motor,0);
@@ -123,10 +123,11 @@ void manual(int key, WbDeviceTag first_motor, WbDeviceTag second_motor,
 
 void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
                 WbDeviceTag third_motor, double distance_sensor_value1,
-                double distance_sensor_value2, float desired_centimeters){
+                double distance_sensor_value2, float desired_centimeters, int param1,
+                int param2){
 
-    int angle_left = 0;
-    int angle_right = 0;
+    int angle_left = param1;
+    int angle_right = param2;
     /* MOVE FORWARD */
     if (distance_sensor_value1 > desired_centimeters || distance_sensor_value2
         > desired_centimeters) {
@@ -142,14 +143,14 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
         angle_left++;
     }
         ///TRURN LEFT//
-    
-    if (angle_left >= 1 && angle_left <= 70) {
+
+    if (angle_left >= 1 && angle_left <= 500) {
        wb_motor_set_velocity(first_motor,- degreesSec2RadSec());
        wb_motor_set_velocity(second_motor,- degreesSec2RadSec());
        wb_motor_set_velocity(third_motor,- degreesSec2RadSec());
        printf("Degrees/s are: %ddeg/s\n", 45);
        angle_left++;
-      
+
     } else {
         angle_left = 0;
     }
@@ -158,7 +159,7 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
         < distance_sensor_value2) {
         angle_right++;
     }
-    if (angle_right >= 1 && angle_right <= 70) {
+    if (angle_right >= 1 && angle_right <= 500) {
         wb_motor_set_velocity(first_motor, degreesSec2RadSec());
         wb_motor_set_velocity(second_motor, degreesSec2RadSec());
         wb_motor_set_velocity(third_motor, degreesSec2RadSec());
@@ -192,6 +193,7 @@ int main(int argc, char **argv) {
    WbDeviceTag second_motor = wb_robot_get_device("wheel2");
    WbDeviceTag third_motor = wb_robot_get_device("wheel3");
 
+
    WbDeviceTag right_distance = wb_robot_get_device("right_light");
    WbDeviceTag left_distance = wb_robot_get_device("left_light");
 
@@ -223,7 +225,7 @@ int main(int argc, char **argv) {
 
    int key;
    int robot_status=0;
-   
+
 
 
   while (wb_robot_step(TIME_STEP) != -1) {
@@ -242,13 +244,13 @@ int main(int argc, char **argv) {
       distance_sensor_value2 = wb_distance_sensor_get_value(left_distance);
 
       switch (robot_status) {
-          case MANUAL:     
+          case MANUAL:
           manual(key, first_motor, second_motor, third_motor);
           break;
-          case AUTONOMOUS: 
+          case AUTONOMOUS:
           autonomous(first_motor, second_motor, third_motor,
           distance_sensor_value1, distance_sensor_value2,
-          desired_centimeters);
+          desired_centimeters,angle_left, angle_right);
           break;
       }
       // current_time = wb_robot_get_time();
