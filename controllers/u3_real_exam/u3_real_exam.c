@@ -163,12 +163,9 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
     wb_motor_set_velocity(detector_motor, 3);
 
 
-    double position_gun_value = wb_position_sensor_get_value
-                                       (gun_sensor);
-    double position_detector_value = wb_position_sensor_get_value
-                                       (detector_sensor);
-    double distance_value = wb_distance_sensor_get_value
-                                  (detector_distance);
+    double position_gun_value = wb_position_sensor_get_value(gun_sensor);
+    double position_detector_value = wb_position_sensor_get_value(detector_sensor);
+    double distance_value = wb_distance_sensor_get_value(detector_distance);
     double distance_gun = wb_distance_sensor_get_value(gun_distance);
 
     float distance1 = resolutionToCentimeters(35);
@@ -236,6 +233,7 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
 
         wb_motor_set_position(gun_motor, new_position_enemy3);
         printf("THATHATHATHATHATHATHATHA\n");
+        
     }
 
     //printf("distance_value: %.4lf\n", distance_value);
