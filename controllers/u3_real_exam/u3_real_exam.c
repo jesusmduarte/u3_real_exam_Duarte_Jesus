@@ -238,9 +238,9 @@ void autonomous(WbDeviceTag first_motor, WbDeviceTag second_motor,
         printf("THATHATHATHATHATHATHATHA\n");
     }
 
-    printf("distance_value: %.4lf\n", distance_value);
-    printf("distance1: %.4lf\n", distance1);
-    printf("new_position %.4lf\n", new_position);
+    //printf("distance_value: %.4lf\n", distance_value);
+    //printf("distance1: %.4lf\n", distance1);
+    //printf("new_position %.4lf\n", new_position);
 
     if (distance_sensor_value2 <= desired_centimeters && distance_sensor_value2
         < distance_sensor_value1) {
