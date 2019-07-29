@@ -2,9 +2,10 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.47891095440888254 -0.8523243921557337 -0.21020805951136157 0.906171167169692
-  position 1.0231902606473398 0.3864644576541162 0.6514190125387687
+  orientation -0.8898122952019193 -0.4065973877139526 -0.20715367148974706 0.9945933201970996
+  position -1.0781366810457391 5.3987154193969005 4.5495426760021225
   follow "robot(1)"
+  followOrientation TRUE
 }
 TexturedBackground {
 }
@@ -13,8 +14,8 @@ TexturedBackgroundLight {
 Floor {
 }
 DEF THREE_WHEELS Robot {
-  translation 1.2326831485312397 0.055287240959249695 0.32213254727339796
-  rotation -0.001836449900800445 -0.9999974274217932 -0.0013313908357202237 -1.1508406465702141
+  translation 1.5360100009421176 0.054808959835610585 0.5318766576881494
+  rotation 0.001047140022821751 0.999998619170291 0.001290408960075644 1.674438444950397
   children [
     DEF SOLID1 Solid {
       children [
@@ -317,7 +318,7 @@ DEF THREE_WHEELS Robot {
           ]
           endPoint Solid {
             translation 0 0 0.14999999999999997
-            rotation 0 0 -0.9999999999999999 0.02291410086211706
+            rotation 0 0 -1 0.022914100863590022
             children [
               DEF sr1 HingeJoint {
                 jointParameters HingeJointParameters {
@@ -929,7 +930,7 @@ DEF wall Solid {
 }
 DEF wall Solid {
   translation 2.147430792230632 0.6 1.754843999725728
-  rotation -6.787767695857421e-08 0.9999999999999972 -2.81158549076604e-08 0.2617993678204156
+  rotation -3.208807603587145e-08 0.9999999999999993 -1.8526059604617748e-08 0.5235987548204162
   children [
     DEF wall Shape {
       appearance PBRAppearance {
@@ -958,22 +959,7 @@ DEF wall Solid {
   boundingObject USE wall
 }
 DEF wall Solid {
-  translation -1.2719466511375728 0.600000033947869 2.6710633510738164
-  rotation -6.787767695857421e-08 0.9999999999999972 -2.81158549076604e-08 0.2617993678204156
-  children [
-    DEF wall Shape {
-      appearance PBRAppearance {
-      }
-      geometry Box {
-        size 2.9 1.2000000000000002 0.30000000000000004
-      }
-    }
-  ]
-  name "solid(4)"
-  boundingObject USE wall
-}
-DEF wall Solid {
-  translation -3.181674765827451 0.6000000054288959 0.6199554568717361
+  translation -1.7363397756863639 0.5999999906606137 0.21006917230752262
   rotation -9.589793718731934e-09 0.9999999999999999 -1.2497662625355229e-08 1.3089969158204156
   children [
     DEF wall Shape {
@@ -986,4 +972,50 @@ DEF wall Solid {
   ]
   name "solid(5)"
   boundingObject USE wall
+}
+DEF wall Solid {
+  translation -0.8369769948514469 0.6000000242248916 2.2627860593921674
+  rotation 1.2625203114725422e-09 0.9999999999999999 -9.589793651382338e-09 2.8797932378204156
+  children [
+    DEF wall Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 2.9 1.2000000000000002 0.30000000000000004
+      }
+    }
+  ]
+  name "solid(4)"
+  boundingObject USE wall
+}
+DEF Enemy_ Solid {
+  translation 3.6399999999999966 0.3300000000000001 -1.2700000000000005
+  children [
+    DEF ENEMY Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0 0
+      }
+      geometry Box {
+        size 0.2 0.2 0.2
+      }
+    }
+  ]
+  boundingObject USE ENEMY
+}
+DEF obstacle_ Solid {
+  translation 1.7900000000000025 0.1 -0.31000000000000005
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.12549019607843137 0.2901960784313726 0.5294117647058824
+      }
+      geometry DEF osbstacle Box {
+        size 0.2 0.2 0.2
+      }
+    }
+  ]
+  name "solid(7)"
+  boundingObject USE osbstacle
+  physics Physics {
+  }
 }
